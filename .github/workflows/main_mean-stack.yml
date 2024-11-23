@@ -74,4 +74,4 @@ jobs:
         with:
           app-name: 'mean-stack'          # Azure App Service name
           slot-name: 'Production'        # Deployment slot (can be 'Production' or another slot)
-          package: './frontend/dist/frontend'  # Correct path to match build output
+          package: .  # Correct path to match build output
