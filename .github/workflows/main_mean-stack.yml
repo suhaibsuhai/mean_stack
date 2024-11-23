@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - mean-stack
 
 on:
@@ -22,10 +25,13 @@ jobs:
         run: npm install
         working-directory: frontend
 
-      - name: npm build
-        run: npm run build --if-present
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
         working-directory: frontend
-
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -50,14 +56,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C8F1FC6801B8460D838905D532DB0D99 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B61828AC915B4C93813236D4CD80741F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A31E782E43704E6FA6F74B58D24E2759 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_910DBD80DC38413A9B8B64976C9EF67C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_51D29F3AF9654EE8B8544EE6EE9ACE8D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6FEA31AACA1541D6BFA9F800AA2F9246 }}
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
         with:
           app-name: 'mean-stack'
           slot-name: 'Production'
           package: .
+          
