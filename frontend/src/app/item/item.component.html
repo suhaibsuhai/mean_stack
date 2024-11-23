@@ -1,0 +1,81 @@
+<!-- item.component.html -->
+
+<div *ngIf="errorMessage" class="error-message" style="color: red; margin-bottom: 20px;">
+    {{ errorMessage }}
+  </div>
+  
+  <!-- Form for adding or editing an item -->
+  <div class="item-form">
+    <h2>{{ item._id ? 'Edit Item' : 'Add New Item' }}</h2>
+    <form (ngSubmit)="onSubmit()" #itemForm="ngForm">
+      <!-- Name Field -->
+      <div>
+        <label for="name">Name:</label>
+        <input 
+          type="text" 
+          id="name" 
+          [(ngModel)]="item.name" 
+          name="name" 
+          placeholder="Item Name" 
+          required 
+          #name="ngModel" 
+          [ngClass]="{'is-invalid': name.invalid && name.touched}" 
+        />
+        <div *ngIf="name.invalid && name.touched" style="color: red;">Name is required.</div>
+      </div>
+  
+      <!-- Description Field -->
+      <div>
+        <label for="description">Description:</label>
+        <input 
+          type="text" 
+          id="description" 
+          [(ngModel)]="item.description" 
+          name="description" 
+          placeholder="Item Description" 
+          required 
+          #description="ngModel" 
+          [ngClass]="{'is-invalid': description.invalid && description.touched}"
+        />
+        <div *ngIf="description.invalid && description.touched" style="color: red;">Description is required.</div>
+      </div>
+  
+      <!-- Price Field -->
+      <div>
+        <label for="price">Price:</label>
+        <input 
+          type="number" 
+          id="price" 
+          [(ngModel)]="item.price" 
+          name="price" 
+          placeholder="Item Price" 
+          required 
+          [min]="0" 
+          #price="ngModel" 
+          [ngClass]="{'is-invalid': price.invalid && price.touched}"
+        />
+        <div *ngIf="price.invalid && price.touched" style="color: red;">Price is required and must be a positive number.</div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="itemForm.invalid">{{ item._id ? 'Update Item' : 'Add Item' }}</button>
+    </form>
+  </div>
+  
+  <!-- List of Items -->
+  <div *ngFor="let item of items" class="item-card" style="margin-bottom: 15px; padding: 10px; border: 1px solid #ddd;">
+    <h3>{{ item.name }}</h3>
+    <p><strong>Description:</strong> {{ item.description }}</p>
+    <p><strong>Price:</strong> {{ item.price }}$</p>
+    <button (click)="onEdit(item)">Edit</button>
+    <button (click)="onDelete(item._id)">Delete</button>  <!-- Use _id instead of id -->
+
+  </div>
+  
+  
+  <!-- No Items Message -->
+  <div *ngIf="items.length === 0" class="no-items" style="margin-top: 40px;">
+    <h2>No items available. Add a new item!</h2>
+  </div>
+  
+  
