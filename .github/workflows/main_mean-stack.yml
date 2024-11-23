@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - mean-stack
 
 on:
@@ -25,12 +22,9 @@ jobs:
         run: npm install
         working-directory: frontend
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          working-directory: frontend
-
+      - name: npm build
+        run: npm run build --if-present
+        working-directory: frontend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -67,4 +61,3 @@ jobs:
           app-name: 'mean-stack'
           slot-name: 'Production'
           package: .
-          
