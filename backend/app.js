@@ -10,10 +10,10 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json()); // to parse JSON data from the body
+app.use(bodyParser.json()); // Parse JSON data from request bodies
 
 // Connect to MongoDB
-mongoose.connect(dbConfig.url)
+mongoose.connect(dbConfig.MONGO_URI)
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection failed:', err));
 
