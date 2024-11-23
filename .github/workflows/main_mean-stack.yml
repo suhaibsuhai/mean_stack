@@ -32,16 +32,16 @@ jobs:
           npm run build --if-present
         working-directory: frontend
 
-      # Step 5: Debugging build directory (list the contents)
+      # Step 5: Debugging build directory (list the contents of dist/frontend)
       - name: Debug build directory
-        run: ls -R frontend
+        run: ls -R frontend/dist
 
       # Step 6: Upload the built frontend files as an artifact
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: frontend/dist/frontend  # Update this path based on your local structure
+          path: frontend/dist/frontend  # Correct path based on build output
 
   deploy:
     runs-on: ubuntu-latest
@@ -74,4 +74,4 @@ jobs:
         with:
           app-name: 'mean-stack'          # Azure App Service name
           slot-name: 'Production'        # Deployment slot (can be 'Production' or another slot)
-          package: './frontend/dist/frontend'  # Path to the built app (updated for your directory)
+          package: './frontend/dist/frontend'  # Correct path to match build output
