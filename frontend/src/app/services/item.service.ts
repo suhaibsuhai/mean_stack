@@ -7,7 +7,7 @@ import { Item } from '../models/item.model';  // Import Item model
   providedIn: 'root'
 })
 export class ItemService {
-  private apiUrl = 'http://mean-stack-backend-hhg9b9dxbecngbgm.uksouth-01.azurewebsites.net/api/items';  // Backend URL
+  private apiUrl = 'http://mean-stack-backend-hhg9b9dxbecngbgm.uksouth-01.azurewebsites.net/api/items'; //added new // Backend URL
 
   constructor(private http: HttpClient) {}
 
