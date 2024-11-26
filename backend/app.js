@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const itemRoutes = require('./routes/item.routes');
+require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
 
@@ -10,9 +11,20 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json()); // Parse JSON data from request bodies
 
+// Determine the environment
+const environment = process.env.NODE_ENV || 'development';
+console.log(`Running in ${environment} mode`);
+
+// MongoDB connection string
+const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meancrud';
+
 // Connect to MongoDB
-mongoose.connect("mongodb://mongodb-mean-stack:g1ScSFXHU0CFPTFC5hlpsS08FUGvCKXI46ggS9H0YFnQEgveNCLL9Go8E9UG8cHzW28IhscpXEGOACDbyBeBSw==@mongodb-mean-stack.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000")
-  .then(() => console.log('MongoDB to Azure connected successfully'))
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log(`Connected to Azure MongoDB: ${mongoURI}`))
   .catch((err) => console.error('MongoDB connection failed:', err));
 
 // Set up API routes for items
@@ -20,7 +32,7 @@ app.use('/api/items', itemRoutes);
 
 // Define a simple home route
 app.get('/', (req, res) => {
-  res.send('Welcome to the MEAN CRUD API v2!');
+  res.send('Welcome to the MEAN CRUD API v3!');
 });
 
 // Set the port and start the server
