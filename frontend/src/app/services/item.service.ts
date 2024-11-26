@@ -7,7 +7,7 @@ import { Item } from '../models/item.model';  // Import Item model
   providedIn: 'root'
 })
 export class ItemService {
-  private apiUrl = 'http://localhost:3000/api/items';  // Backend URL
+  private apiUrl = 'https://meanstack-backend.azurewebsites.net/api/items';  // Backend URL
 
   constructor(private http: HttpClient) {}
 
