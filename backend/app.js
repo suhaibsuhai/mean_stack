@@ -20,10 +20,7 @@ const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/meancrud';
 
 // Connect to MongoDB
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoURI)
   .then(() => console.log(`Connected to Azure MongoDB: ${mongoURI}`))
   .catch((err) => console.error('MongoDB connection failed:', err));
 
